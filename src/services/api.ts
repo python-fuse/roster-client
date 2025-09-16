@@ -17,11 +17,18 @@ export class APIService {
     });
   };
 
-  static register = (
-    userData: Omit<User, "id" | "createdAt" | "updatedAt">
-  ) => {
+  static register = (userData: {
+    name: string;
+    email: string;
+    password: string;
+  }) => {
     return api.post<User>("/auth/register", userData);
   };
+
+  static logout = () => {
+    return api.post("/auth/logout");
+  };
+
   static getCurrentUser = () => {
     return api.get<User>("/auth/me");
   };

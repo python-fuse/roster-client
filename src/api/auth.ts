@@ -6,6 +6,12 @@ export interface LoginCredentials {
   password: string;
 }
 
+export interface RegisterCredentials {
+  name: string;
+  email: string;
+  password: string;
+}
+
 export interface LoginResponse {
   token: string;
   user: User;
@@ -20,8 +26,18 @@ export const AuthAPI = {
     return response.data as LoginResponse;
   },
 
+  register: async (credentials: RegisterCredentials): Promise<User> => {
+    const response = await APIService.register(credentials);
+    return response.data;
+  },
+
   getCurrentUser: async (): Promise<User> => {
     const response = await APIService.getCurrentUser();
     return response.data;
+  },
+
+  logout: async (): Promise<void> => {
+    // Clear token from localStorage or perform logout API call
+    localStorage.removeItem("token");
   },
 };
