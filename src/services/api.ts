@@ -33,6 +33,26 @@ export class APIService {
     return api.get<User>("/auth/me");
   };
 
+  // Users APIs
+  static getUsers = () => {
+    return api.get<User[]>("/users");
+  };
+
+  static getUserById = (id: string) => {
+    return api.get<User>(`/users/${id}`);
+  };
+
+  static updateUser = (
+    id: string,
+    userData: Partial<Omit<User, "id" | "createdAt" | "updatedAt">>
+  ) => {
+    return api.put<User>(`/users/${id}`, userData);
+  };
+
+  static deleteUser = (id: string) => {
+    return api.delete(`/users/${id}`);
+  };
+
   // Assignment APIs
   static getAssignments = () => {
     return api.get<Assignment[]>("/assignments");
