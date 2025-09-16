@@ -1,22 +1,84 @@
-import axios from "axios";
+import api from "../api/axios";
 
-const api = axios.create({
-  baseURL: import.meta.env.BASE_URL || "http://localhost:5000/api",
-  headers: {
-    "Content-Type": "application/json",
-  },
+import type {
+  User,
+  Assignment,
+  DutyRoster,
+  Notification,
+  Shift,
+} from "@/types/definitions";
 
-  withCredentials: true,
-});
+export class APIService {
+  // Auth APIs
+  static login = (username: string, password: string) => {
+    return api.post<{ token: string }>("/auth/login", { username, password });
+  };
 
-api.interceptors.response.use(
-  (res) => res,
-  (err) => {
-    if (err.response.status === 401) {
-      console.log("Unauthorized! Redirecting to login...");
-      window.location.href = "/login";
-    }
+  static register = (
+    userData: Omit<User, "id" | "createdAt" | "updatedAt">
+  ) => {
+    return api.post<User>("/auth/register", userData);
+  };
+  static getCurrentUser = () => {
+    return api.get<User>("/auth/me");
+  };
 
-    return Promise.reject(err);
-  }
-);
+  // Assignment APIs
+  static getAssignments = () => {
+    return api.get<Assignment[]>("/assignments");
+  };
+
+  static createAssignment = (
+    assignmentData: Omit<Assignment, "id" | "createdAt" | "updatedAt">
+  ) => {
+    return api.post<Assignment>("/assignments", assignmentData);
+  };
+
+  static updateAssignment = (
+    id: number,
+    assignmentData: Partial<Omit<Assignment, "id" | "createdAt" | "updatedAt">>
+  ) => {
+    return api.put<Assignment>(`/assignments/${id}`, assignmentData);
+  };
+
+  static deleteAssignment = (id: number) => {
+    return api.delete(`/assignments/${id}`);
+  };
+
+  // Duty Roster APIs
+  static getDutyRosters = () => {
+    return api.get<DutyRoster[]>("/dutyrosters");
+  };
+
+  static getUserDutyRosters = (userId: string) => {
+    return api.get<DutyRoster[]>(`/dutyrosters/user/${userId}`);
+  };
+
+  static createDutyRoster = (createdById: string, date: Date, shift: Shift) => {
+    return api.post<DutyRoster>("/dutyrosters", { createdById, date, shift });
+  };
+
+  static updateDutyRoster = (
+    id: string,
+    dutyRosterData: Partial<Omit<DutyRoster, "id" | "createdAt" | "updatedAt">>
+  ) => {
+    return api.put<DutyRoster>(`/dutyrosters/${id}`, dutyRosterData);
+  };
+
+  static deleteDutyRoster = (id: string) => {
+    return api.delete(`/dutyrosters/${id}`);
+  };
+
+  // Notification APIs
+  static getNotifications = () => {
+    return api.get<Notification[]>("/notifications");
+  };
+
+  static getUserNotifications = (userId: string) => {
+    return api.get<Notification[]>(`/notifications/user/${userId}`);
+  };
+
+  static markNotificationAsRead = (id: string) => {
+    return api.put<Notification>(`/notifications/read/${id}`);
+  };
+}
