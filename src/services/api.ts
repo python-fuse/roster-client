@@ -10,8 +10,11 @@ import type {
 
 export class APIService {
   // Auth APIs
-  static login = (username: string, password: string) => {
-    return api.post<{ token: string }>("/auth/login", { username, password });
+  static login = (email: string, password: string) => {
+    return api.post<{ token: string; user: User }>("/auth/login", {
+      email,
+      password,
+    });
   };
 
   static register = (
