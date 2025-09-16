@@ -11,7 +11,7 @@ import type {
 export class APIService {
   // Auth APIs
   static login = (email: string, password: string) => {
-    return api.post<{ token: string; user: User }>("/auth/login", {
+    return api.post<{ message: string; user: User }>("/auth/login", {
       email,
       password,
     });

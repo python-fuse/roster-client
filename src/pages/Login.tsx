@@ -16,7 +16,7 @@ import { AuthAPI, type LoginCredentials } from "@/api/auth";
 
 export const Login = () => {
   const navigate = useNavigate();
-  const { dispatch } = useAuth();
+  const { state, dispatch } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

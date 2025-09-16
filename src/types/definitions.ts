@@ -48,9 +48,9 @@ export interface Notification {
 }
 
 export const enum Role {
-  ADMIN,
-  STAFF,
-  SUPERVISOR,
+  ADMIN = "ADMIN",
+  STAFF = "STAFF",
+  SUPERVISOR = "SUPERVISOR",
 }
 
 export enum Shift {

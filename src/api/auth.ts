@@ -13,7 +13,7 @@ export interface RegisterCredentials {
 }
 
 export interface LoginResponse {
-  token: string;
+  message: string;
   user: User;
 }
 
@@ -33,11 +33,13 @@ export const AuthAPI = {
 
   getCurrentUser: async (): Promise<User> => {
     const response = await APIService.getCurrentUser();
-    return response.data;
+    // Handle both direct User response and nested {message, user} response
+    const data = response.data as any;
+    return data.user || data;
   },
 
   logout: async (): Promise<void> => {
-    // Clear token from localStorage or perform logout API call
-    localStorage.removeItem("token");
+    // Call API logout to clear server-side session/cookie
+    await APIService.logout();
   },
 };
