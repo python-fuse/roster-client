@@ -55,7 +55,7 @@ export class APIService {
 
   // Assignment APIs
   static getAssignments = () => {
-    return api.get<Assignment[]>("/assignments");
+    return api.get("/assignments");
   };
 
   static createAssignment = (
@@ -77,11 +77,11 @@ export class APIService {
 
   // Duty Roster APIs
   static getDutyRosters = () => {
-    return api.get<DutyRoster[]>("/dutyrosters");
+    return api.get("/dutyrosters");
   };
 
   static getUserDutyRosters = (userId: string) => {
-    return api.get<DutyRoster[]>(`/dutyrosters/user/${userId}`);
+    return api.get(`/dutyrosters/user/${userId}`);
   };
 
   static createDutyRoster = (createdById: string, date: Date, shift: Shift) => {
@@ -101,11 +101,11 @@ export class APIService {
 
   // Notification APIs
   static getNotifications = () => {
-    return api.get<Notification[]>("/notifications");
+    return api.get("/notifications");
   };
 
   static getUserNotifications = (userId: string) => {
-    return api.get<Notification[]>(`/notifications/user/${userId}`);
+    return api.get(`/notifications/user/${userId}`);
   };
 
   static markNotificationAsRead = (id: string) => {

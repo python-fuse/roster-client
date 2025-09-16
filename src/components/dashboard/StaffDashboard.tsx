@@ -41,21 +41,22 @@ export const StaffDashboard = () => {
           APIService.getUserDutyRosters(state.user.id),
         ]);
 
-        const allAssignments = assignmentsRes.data;
-        const userDutyRosters = dutyRostersRes.data;
+        const allAssignments =
+          assignmentsRes.data.assignments || assignmentsRes.data;
+        const userDutyRosters = dutyRostersRes.data.data || dutyRostersRes.data;
 
         // Filter assignments for current user
-        const myAssignments = allAssignments.filter(
-          (assignment) => assignment.userId === state.user?.id
+        const myAssignments = (allAssignments as Assignment[]).filter(
+          (assignment: Assignment) => assignment.userId === state.user?.id
         );
 
         // Calculate upcoming vs completed shifts
         const now = new Date();
-        const upcomingShifts = userDutyRosters.filter(
-          (roster) => new Date(roster.date) > now
+        const upcomingShifts = (userDutyRosters as DutyRoster[]).filter(
+          (roster: DutyRoster) => new Date(roster.date) > now
         ).length;
-        const completedShifts = userDutyRosters.filter(
-          (roster) => new Date(roster.date) <= now
+        const completedShifts = (userDutyRosters as DutyRoster[]).filter(
+          (roster: DutyRoster) => new Date(roster.date) <= now
         ).length;
 
         setStats({

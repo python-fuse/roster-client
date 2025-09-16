@@ -44,22 +44,27 @@ export const AdminDashboard = () => {
             APIService.getNotifications(),
           ]);
 
-        const users = usersRes.data;
-        const assignments = assignmentsRes.data;
-        const dutyRosters = dutyRostersRes.data;
-        const notifications = notificationsRes.data;
+        const users = (usersRes.data as any).users || usersRes.data;
+        const assignments =
+          (assignmentsRes.data as any).assignments || assignmentsRes.data;
+        const dutyRosters =
+          (dutyRostersRes.data as any).data || dutyRostersRes.data;
+        const notifications =
+          (notificationsRes.data as any).notifications || notificationsRes.data;
 
         // Calculate stats
-        const unreadNotifications = notifications.filter((n) => !n.read).length;
-        const recentAssignments = assignments
+        const unreadNotifications = (notifications as any[]).filter(
+          (n: any) => !n.read
+        ).length;
+        const recentAssignments = (assignments as Assignment[])
           .sort(
-            (a, b) =>
+            (a: Assignment, b: Assignment) =>
               new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
           )
           .slice(0, 5);
-        const recentUsers = users
+        const recentUsers = (users as User[])
           .sort(
-            (a, b) =>
+            (a: User, b: User) =>
               new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
           )
           .slice(0, 5);
@@ -326,16 +331,18 @@ export const AdminDashboard = () => {
                       <div className="text-right">
                         <span
                           className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                            user.role === 0
+                            (user.role as any) === 0 || user.role === "ADMIN"
                               ? "bg-red-100 text-red-800"
-                              : user.role === 2
+                              : (user.role as any) === 2 ||
+                                user.role === "SUPERVISOR"
                               ? "bg-blue-100 text-blue-800"
                               : "bg-gray-100 text-gray-800"
                           }`}
                         >
-                          {user.role === 0
+                          {(user.role as any) === 0 || user.role === "ADMIN"
                             ? "ADMIN"
-                            : user.role === 2
+                            : (user.role as any) === 2 ||
+                              user.role === "SUPERVISOR"
                             ? "SUPERVISOR"
                             : "STAFF"}
                         </span>

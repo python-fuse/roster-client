@@ -1,7 +1,6 @@
 import { useAuth } from "@/context/AuthContext";
 import { AdminDashboard } from "@/components/dashboard/AdminDashboard";
 import { StaffDashboard } from "@/components/dashboard/StaffDashboard";
-import { Role } from "@/types/definitions";
 
 const Dashboard = () => {
   const { state } = useAuth();
@@ -16,10 +15,13 @@ const Dashboard = () => {
   }
 
   // Route to appropriate dashboard based on user role
-  if (state.user.role === Role.ADMIN) {
+  if ((state.user.role as any) === 0 || state.user.role === "ADMIN") {
     // ADMIN
     return <AdminDashboard />;
-  } else if (state.user.role === Role.SUPERVISOR) {
+  } else if (
+    (state.user.role as any) === 2 ||
+    state.user.role === "SUPERVISOR"
+  ) {
     // SUPERVISOR - can use admin dashboard
     return <AdminDashboard />;
   } else {

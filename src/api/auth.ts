@@ -28,7 +28,9 @@ export const AuthAPI = {
 
   register: async (credentials: RegisterCredentials): Promise<User> => {
     const response = await APIService.register(credentials);
-    return response.data;
+    // Handle both direct User response and nested {message, user} response
+    const data = response.data as any;
+    return data.user || data;
   },
 
   getCurrentUser: async (): Promise<User> => {
