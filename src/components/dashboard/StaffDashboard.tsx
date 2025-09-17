@@ -79,7 +79,7 @@ export const StaffDashboard = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 p-6">
+      <div className="p-6">
         <div className="max-w-6xl mx-auto">
           <div className="animate-pulse">
             <div className="h-8 bg-gray-200 rounded w-1/4 mb-8"></div>
@@ -96,7 +96,7 @@ export const StaffDashboard = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gray-50 p-6">
+      <div className="p-6">
         <div className="max-w-6xl mx-auto">
           <div className="bg-red-50 border border-red-200 rounded-lg p-4">
             <p className="text-red-600">{error}</p>
@@ -152,7 +152,7 @@ export const StaffDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="p-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">

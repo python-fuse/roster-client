@@ -1,6 +1,7 @@
 import { useAuth } from "@/context/AuthContext";
 import type { Role } from "@/types/definitions";
 import React from "react";
+import { Link } from "react-router-dom";
 // import { useAuth } from "../../context/AuthContext";
 
 interface ProtectedRouteProps {
@@ -36,7 +37,14 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
             Unauthorized
           </h2>
-          <p className="text-gray-600">Please log in to access this page.</p>
+          <p className="text-gray-600">
+            Please
+            <Link to={"/login"} className="text-blue-400 underline">
+              {" "}
+              log in{" "}
+            </Link>
+            to access this page.
+          </p>
         </div>
       </div>
     );
