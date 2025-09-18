@@ -1,14 +1,15 @@
 import { Bell, Check } from "lucide-react";
-import io, { Socket } from "socket.io-client";
+// import io, { Socket } from "socket.io-client";
 import React, { useEffect, useState } from "react";
 import { APIService } from "@/services/api";
 import { useAuth } from "@/context/AuthContext";
 import type { Notification } from "@/types/definitions";
 import NotificationCard from "./NotificationCard";
 import { Button } from "../ui/button";
+import { useSocket } from "@/context/SocketContext";
 
 export const Notifications: React.FC = () => {
-  const [socket, setSocket] = useState<Socket>();
+  // const [socket, setSocket] = useState<Socket>();
   const [notifications, setNotifications] = useState<Notification[]>();
   const auth = useAuth();
 
@@ -16,11 +17,9 @@ export const Notifications: React.FC = () => {
     state: { user },
   } = auth;
 
-  useEffect(() => {
-    if (!socket) {
-      setSocket(io("ws://localhost:5000"));
-    }
+  const { socket } = useSocket();
 
+  useEffect(() => {
     socket?.on("connect", () => {
       console.log("Connected");
     });
@@ -30,10 +29,7 @@ export const Notifications: React.FC = () => {
     socket?.on("notification", (data) => {
       setNotifications((prev) => [...prev!, data]);
     });
-
-    return () => {
-      socket?.close();
-    };
+    console.log("Effect -- Notifications", socket);
   }, [socket, setNotifications]);
 
   useEffect(() => {
@@ -47,10 +43,10 @@ export const Notifications: React.FC = () => {
     fetchNotifications();
   }, []);
 
-  if (!notifications)
+  if (!notifications || (notifications && notifications?.length < 1))
     return (
-      <div className="p-6">
-        <div className="text-center py-12">
+      <div className="p-6 ">
+        <div className="text-center py-12 bg-white rounded-lg shadow-sm ">
           <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <Bell className="fill-blue-400 text-blue-400" />
           </div>
