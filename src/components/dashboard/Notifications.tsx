@@ -1,5 +1,5 @@
 import { Bell, Check } from "lucide-react";
-import { Socket } from "socket.io-client";
+import io, { Socket } from "socket.io-client";
 import React, { useEffect, useState } from "react";
 import { APIService } from "@/services/api";
 import { useAuth } from "@/context/AuthContext";
@@ -15,6 +15,26 @@ export const Notifications: React.FC = () => {
   const {
     state: { user },
   } = auth;
+
+  useEffect(() => {
+    if (!socket) {
+      setSocket(io("ws://localhost:5000"));
+    }
+
+    socket?.on("connect", () => {
+      console.log("Connected");
+    });
+
+    socket?.emit("join", user!.id);
+
+    socket?.on("notification", (data) => {
+      setNotifications((prev) => [...prev!, data]);
+    });
+
+    return () => {
+      socket?.close();
+    };
+  }, [socket, setNotifications]);
 
   useEffect(() => {
     const fetchNotifications = async () => {

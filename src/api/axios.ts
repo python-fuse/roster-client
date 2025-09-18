@@ -11,17 +11,17 @@ const api = axios.create({
 // Add request interceptor to log requests
 api.interceptors.request.use(
   (config) => {
-    console.log("📤 Making request:", {
-      method: config.method?.toUpperCase(),
-      url: config.url,
-      baseURL: config.baseURL,
-      withCredentials: config.withCredentials,
-      headers: config.headers,
-    });
+    // console.log("📤 Making request:", {
+    //   method: config.method?.toUpperCase(),
+    //   url: config.url,
+    //   baseURL: config.baseURL,
+    //   withCredentials: config.withCredentials,
+    //   headers: config.headers,
+    // });
     return config;
   },
   (error) => {
-    console.error("❌ Request error:", error);
+    // console.error("❌ Request error:", error);
     return Promise.reject(error);
   }
 );
@@ -29,12 +29,12 @@ api.interceptors.request.use(
 // Add response interceptor to log responses
 api.interceptors.response.use(
   (response) => {
-    console.log("📥 Response received:", {
-      status: response.status,
-      url: response.config.url,
-      headers: response.headers,
-      cookies: document.cookie, // Log current cookies
-    });
+    // console.log("📥 Response received:", {
+    //   status: response.status,
+    //   url: response.config.url,
+    //   headers: response.headers,
+    //   cookies: document.cookie, // Log current cookies
+    // });
     return response;
   },
   (error) => {
