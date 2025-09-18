@@ -64,9 +64,11 @@ export const Notifications: React.FC = () => {
       </div>
     );
 
-  const renderNotifications = notifications.map((notification) => (
-    <NotificationCard key={notification.id} notification={notification} />
-  ));
+  const renderNotifications = notifications
+    .reverse()
+    .map((notification) => (
+      <NotificationCard key={notification.id} notification={notification} />
+    ));
 
   return (
     <div className="p-6">
