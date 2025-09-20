@@ -1,5 +1,6 @@
 import React from "react";
 import { useAuth } from "@/context/AuthContext";
+import { useNotifications } from "@/context/NotificationContext";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AuthAPI } from "@/api/auth";
 
@@ -11,6 +12,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   children,
 }) => {
   const { state, dispatch } = useAuth();
+  const { state: notificationState } = useNotifications();
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = state;
@@ -29,7 +31,16 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
     }
   };
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => location.pathname === path; // Notification Badge Component
+  const NotificationBadge: React.FC<{ count: number }> = ({ count }) => {
+    if (count === 0) return null;
+
+    return (
+      <span className="ml-auto inline-flex items-center justify-center px-2 py-1 rounded-full text-xs font-medium bg-red-500 text-white min-w-[20px] h-5">
+        {count > 99 ? "99+" : count}
+      </span>
+    );
+  };
 
   // Define navigation items based on user role
   const getNavigationItems = () => {
@@ -51,6 +62,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
             <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
           </svg>
         ),
+        showBadge: true,
       },
       {
         name: "Calendar",
@@ -185,6 +197,10 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                     {item.icon}
                   </span>
                   {item.name}
+                  {/* Show notification badge if path is notifications and there are unread notifications */}
+                  {item.path === "/dashboard/notifications" && (
+                    <NotificationBadge count={notificationState.unreadCount} />
+                  )}
                 </button>
               ))}
             </nav>

@@ -111,4 +111,8 @@ export class APIService {
   static markNotificationAsRead = (id: string) => {
     return api.put<Notification>(`/notifications/read/${id}`);
   };
+
+  static markAllNotificationsAsRead = () => {
+    return api.put("/notifications/read-all");
+  };
 }
