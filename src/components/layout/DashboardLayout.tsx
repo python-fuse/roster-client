@@ -82,19 +82,19 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
     // Staff can view assignments
     const staffItems = [
       ...baseItems,
-      {
-        name: "My Assignments",
-        path: "/dashboard/assignments",
-        icon: (
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-            <path
-              fillRule="evenodd"
-              d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6z"
-              clipRule="evenodd"
-            />
-          </svg>
-        ),
-      },
+      // {
+      //   name: "My Assignments",
+      //   path: "/dashboard/assignments",
+      //   icon: (
+      //     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+      //       <path
+      //         fillRule="evenodd"
+      //         d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6z"
+      //         clipRule="evenodd"
+      //       />
+      //     </svg>
+      //   ),
+      // },
     ];
 
     // Admin and Supervisor can manage assignments and rosters

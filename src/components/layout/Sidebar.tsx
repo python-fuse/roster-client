@@ -35,7 +35,7 @@ const navigation: NavItem[] = [
     name: "Assignments",
     href: "/assignments",
     icon: ClipboardList,
-    roles: ["ADMIN", "SUPERVISOR", "STAFF"],
+    roles: ["ADMIN", "SUPERVISOR"],
   },
   {
     name: "Users",
@@ -58,7 +58,9 @@ const navigation: NavItem[] = [
 ];
 
 export const Sidebar: React.FC = () => {
-  const { user } = useAuth();
+  const {
+    state: { user },
+  } = useAuth();
 
   const filteredNavigation = navigation.filter((item) =>
     user ? item.roles.includes(user.role) : false

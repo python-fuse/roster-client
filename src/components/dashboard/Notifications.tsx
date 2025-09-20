@@ -52,8 +52,6 @@ export const Notifications: React.FC = () => {
   return (
     <div className="p-6">
       <div className="max-w-7xl mx-auto">
-        <DebugSocketStatus />
-
         <div className="mb-6 flex justify-between items-center">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">Notifications</h1>
@@ -150,18 +148,17 @@ export const Notifications: React.FC = () => {
   );
 };
 
-// Add this to your Notifications component for debugging
-const DebugSocketStatus = () => {
-  const { socket, isConnected } = useSocket();
-  const { state: authState } = useAuth();
+// const DebugSocketStatus = () => {
+//   const { socket, isConnected } = useSocket();
+//   const { state: authState } = useAuth();
 
-  return (
-    <div className="mb-4 p-4 bg-gray-100 rounded-lg text-sm">
-      <h3 className="font-bold mb-2">🔧 Debug Info:</h3>
-      <p>Socket Connected: {isConnected ? "✅" : "❌"}</p>
-      <p>Socket ID: {socket?.id || "No ID"}</p>
-      <p>User ID: {authState.user?.id || "No User"}</p>
-      <p>User Name: {authState.user?.name || "No Name"}</p>
-    </div>
-  );
-};
+//   return (
+//     <div className="mb-4 p-4 bg-gray-100 rounded-lg text-sm">
+//       <h3 className="font-bold mb-2">🔧 Debug Info:</h3>
+//       <p>Socket Connected: {isConnected ? "✅" : "❌"}</p>
+//       <p>Socket ID: {socket?.id || "No ID"}</p>
+//       <p>User ID: {authState.user?.id || "No User"}</p>
+//       <p>User Name: {authState.user?.name || "No Name"}</p>
+//     </div>
+//   );
+// };
