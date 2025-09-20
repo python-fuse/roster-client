@@ -43,7 +43,7 @@ export const SocketDebug: React.FC = () => {
   return (
     <div className="bg-gray-100 p-4 rounded-lg mb-6">
       <h3 className="text-lg font-semibold mb-4">🔌 Socket Debug</h3>
-      
+
       <div className="space-y-2 mb-4">
         <p>
           <strong>Socket Connected:</strong>{" "}

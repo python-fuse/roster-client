@@ -31,7 +31,12 @@ export interface Assignment {
   updatedAt: string;
   dutyRoster?: DutyRoster;
   user?: User;
-  assignedBy?: User;
+  assignedBy?: {
+    id: string;
+    name: string;
+    email: string;
+    role: Role;
+  };
 }
 
 export interface Notification {
@@ -54,9 +59,9 @@ export const enum Role {
 }
 
 export enum Shift {
-  MORNING,
-  EVENING,
-  NIGHT,
+  MORNING = "MORNING",
+  EVENING = "EVENING",
+  NIGHT = "NIGHT",
 }
 
 export enum NotificationType {
@@ -67,4 +72,14 @@ export enum NotificationType {
   DUTY_ROSTER_UPDATED,
   SYSTEM_ANNOUNCEMENT,
   REMINDER,
+}
+
+// Calendar-specific types for react-big-calendar
+export interface CalendarEvent {
+  id: string;
+  title: string;
+  start: Date;
+  end: Date;
+  resource?: Assignment;
+  allDay?: boolean;
 }

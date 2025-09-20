@@ -58,6 +58,10 @@ export class APIService {
     return api.get("/assignments");
   };
 
+  static getUserAssignments = (userId: string) => {
+    return api.get<Assignment[]>(`/assignments/user/${userId}`);
+  };
+
   static createAssignment = (
     assignmentData: Omit<Assignment, "id" | "createdAt" | "updatedAt">
   ) => {
